@@ -1,0 +1,13 @@
+#control_panel {
+    float: left;
+    min-width: 200px;
+    margin-right: 20px;
+}
+
+#control_panel input {
+    /*float:right;*/
+}
+
+#wrapper {
+    float: left;
+}

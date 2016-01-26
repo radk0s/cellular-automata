@@ -39,11 +39,11 @@
         return state;
     };
 
-    module.createAutomata = function(N, pointsNumber, totalEnergy) { // totalEnergy = N*N
+    module.createAutomata = function(N, pointsNumber, totalEnergy, collision) { // totalEnergy = N*N
         var world = module.generateEmptyWorld(N, 'black');
-        console.log(totalEnergy);
         var pointEnergy = Math.floor(totalEnergy/pointsNumber);
         var accEnergy = totalEnergy - pointEnergy * pointsNumber;
+        var steps = 0;
 
         for( var i = 0; i < pointsNumber; i ++) {
             var x = randomInt(N);
@@ -90,6 +90,7 @@
         return {
             step: function(callback) {
                 //var tmpWorld = world;
+                var tmpAcc = 0;
                 var tmpWorld = $.extend(true, {}, world);
                 //console.log(JSON.stringify(world))
                 for(var i = 0; i < N; i++) {
@@ -122,22 +123,37 @@
                                     }
                                 }
                                 specimenEnergy[specimenId] = specimenEnergy[specimenId] - 1;
-                                accEnergy++;
+                                tmpAcc++;
                             }
                         }
 
                     }
                 }
+                var collisions = 0;
+                for(var i = 0; i < N; i++) {
+                    for (var j = 0; j < N; j++) {
+                        var specimensInCell = 0;
+                        for (var specimenId in world[i][j].specimens) {
+                            if (world[i][j].specimens.hasOwnProperty(specimenId)) {
+                                specimensInCell +=1;
+                            }
+                        }
+                        if (specimensInCell > 1) collisions +=specimensInCell;
+                    }
+                }
 
-                //handleCollisions(world);
+                var restEnergy = collision(world, tmpAcc, collisions);
+
+                if (!collisions) accEnergy += tmpAcc;
+                else accEnergy +=  restEnergy;
 
                 for(var i = 0; i < N; i++) {
                     for (var j = 0; j < N; j++) {
                         recalculateColorAndLabel(world, i, j)
                     }
                 }
-                console.log(accEnergy);
-                callback(world);
+                steps++;
+                callback(world, steps, accEnergy);
             },
             world: world
         }

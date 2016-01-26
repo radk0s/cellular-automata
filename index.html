@@ -4,13 +4,36 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Press SPACE</h1>
-<div id="wrapper"></div>
+    <div id="control_panel">
+        Grid size: <input placeholder="pixels" type="number" >px<br/>
+        Pixels for cell: <input type="number" ><br/>
+        Specimens: <input type="number"><br/>
+        Energy: <input type="number"><br/>
+        <br/>
+        Specimen energy distribution:<br/>
+        <input type="radio" name="disperse_type" value="1" checked> Equal<br>
+        <input type="radio" name="disperse_type" value="2"> Fibonacci<br>
+        <br/>
+        Collision scenario:<br/>
+        <!--Each specimen get the same portion of energy.-->
+        <input type="radio" name="collision_scenario" value="1" checked> standard<br>
+        <!--Strongest specimen get whole collision energy.-->
+        <input type="radio" name="collision_scenario" value="2"> bad<br>
+        <!--Strongest specimen get collision and other specimens energy.-->
+        <input type="radio" name="collision_scenario" value="3" checked> very bad<br>
+        <!--Each specimen want have equal energy with others.-->
+        <input type="radio" name="collision_scenario" value="4"> altruist<br>
+        <br/>
+        <div><button>Simulate</button></div>
 
-<script src="utils.js"></script>
-<script src="palette.js"></script>
-<script src="main.js"></script>
+    </div>
+    <div id="wrapper"></div>
+
+    <script src="utils.js"></script>
+    <script src="palette.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

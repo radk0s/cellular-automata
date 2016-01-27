@@ -8,26 +8,31 @@
 </head>
 <body>
     <div id="control_panel">
-        Grid size: <input placeholder="pixels" type="number" >px<br/>
-        Pixels for cell: <input type="number" ><br/>
-        Specimens: <input type="number"><br/>
-        Energy: <input type="number"><br/>
-        <br/>
-        Specimen energy distribution:<br/>
-        <input type="radio" name="disperse_type" value="1" checked> Equal<br>
-        <input type="radio" name="disperse_type" value="2"> Fibonacci<br>
+        Grid size: <input name="grid_size" placeholder="pixels" value="900" type="number" >px<br/>
+        Pixels for cell: <input name="cell_size" value="30" type="number" ><br/>
+        Specimens: <input name="specimens_number" value="50" type="number"><br/>
         <br/>
         Collision scenario:<br/>
         <!--Each specimen get the same portion of energy.-->
-        <input type="radio" name="collision_scenario" value="1" checked> standard<br>
+        <input type="radio" name="collision_scenario" value="norm" checked> standard<br>
         <!--Strongest specimen get whole collision energy.-->
-        <input type="radio" name="collision_scenario" value="2"> bad<br>
+        <input type="radio" name="collision_scenario" value="bad"> bad<br>
         <!--Strongest specimen get collision and other specimens energy.-->
-        <input type="radio" name="collision_scenario" value="3" checked> very bad<br>
+        <input type="radio" name="collision_scenario" value="vbad"> very bad<br>
         <!--Each specimen want have equal energy with others.-->
-        <input type="radio" name="collision_scenario" value="4"> altruist<br>
+        <input type="radio" name="collision_scenario" value="altr"> altruist<br>
         <br/>
-        <div><button>Simulate</button></div>
+        Step delay: <input name="step_delay" type="number" value="10" >ms<br/>
+        <div><button id="start_simulation">Simulate</button></div>
+        <br/>
+        Accumulator:<span id="accumulator"></span>
+        <br/>
+        Steps:<span id="steps"></span>
+        <br/>
+        <br/>
+        Avg.steps to extinction: <span id="steps_extinction_avg"></span>
+        <br/>
+        <div><button id="reset_avg">Clear</button></div>
 
     </div>
     <div id="wrapper"></div>

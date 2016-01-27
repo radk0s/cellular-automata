@@ -10,7 +10,6 @@
 
         return {
                 draw: function(state, cb) {
-                    console.log(cellSize);
                     for(var i = 0; i < N; i++) {
                         for(var j = 0; j < N; j++) {
                             ctx.fillStyle = state[i][j].color;

@@ -3,13 +3,14 @@
 
     module.createGrid = function(parentId, size, cellSize) {
         var canvas = $(`<canvas width="${size}" height="${size}"/>`)[0];
-        $('#' + parentId).append(canvas);
+        $('#' + parentId).html(canvas);
 
         var ctx = canvas.getContext("2d");
         var N = size/cellSize;
 
         return {
                 draw: function(state, cb) {
+                    console.log(cellSize);
                     for(var i = 0; i < N; i++) {
                         for(var j = 0; j < N; j++) {
                             ctx.fillStyle = state[i][j].color;
@@ -25,7 +26,7 @@
             };
         };
 
-    module.generateEmptyWorld = function(size, color) {
+    module.generateEmptyWorld = function(N, color) {
         var state = [];
         for(var i = 0; i < N; i++) {
             state[i] = [];

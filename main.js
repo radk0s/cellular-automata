@@ -12,10 +12,19 @@ $("input:radio[name=collision_scenario]").click(function() {
 
 $("button#start_simulation").click(function() {
 
-    prepareAutomata(size, cellSize, specimens)
+    var size = parseInt($('input[name="grid_size"]').val()) || 700;
+    var cellSize = parseInt($('input[name="cell_size"]').val()) || 25;
+
+    var specimens = parseInt($('input[name="specimens_number"]').val()) || 50;
+
+    runAutomata(size, cellSize, specimens, disperse_type, collision_scenario)
+        .run()
+        .then(function(steps) {
+            console.log('Steps to distinct' + steps)
+        });
 })
 
-function prepareAutomata(size, cellSize, specimens, disperese_type, collision_scenario) {
+function runAutomata(size, cellSize, specimens, disperese_type, collision_scenario) {
     var grid = createGrid('wrapper', size, cellSize);
     var N = size/cellSize;
 
@@ -52,20 +61,22 @@ function prepareAutomata(size, cellSize, specimens, disperese_type, collision_sc
 
 
     return {
-        run: function() {
-            var interval = setInterval(function() {
-                automata.step(function (state, step, accEnergy) {
-                    console.log(accEnergy);
-                    $('#accumulator').html(accEnergy);
-                    $('#steps').html(step);
+        run: function(stepOffset) {
+            var delay = $('input[name="step_delay"]').val() || 20;
+            return new Promise(function(resolve, reject) {
+                var interval = setInterval(function() {
+                    automata.step(function (state, step, accEnergy) {
+                        $('#accumulator').html(accEnergy);
+                        $('#steps').html(step);
 
-                    if (step % 10 === 0) grid.draw(state);
-                    if (accEnergy === N * N) {
-                        console.log("Step no. " + step);
-                        clearInterval(interval);
-                    }
-                });
-            },50);
+                        if (step % (stepOffset || 1) === 0) grid.draw(state);
+                        if (accEnergy === N * N) {
+                            resolve(step);
+                            clearInterval(interval);
+                        }
+                    });
+                },delay);
+            });
         }
     }
 

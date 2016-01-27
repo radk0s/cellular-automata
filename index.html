@@ -11,23 +11,26 @@
         Grid size: <input placeholder="pixels" type="number" >px<br/>
         Pixels for cell: <input type="number" ><br/>
         Specimens: <input type="number"><br/>
-        Energy: <input type="number"><br/>
         <br/>
         Specimen energy distribution:<br/>
-        <input type="radio" name="disperse_type" value="1" checked> Equal<br>
-        <input type="radio" name="disperse_type" value="2"> Fibonacci<br>
+        <input type="radio" name="disperse_type" value="equal" checked> Equal<br>
+        <input type="radio" name="disperse_type" value="fibb"> Fibonacci<br>
         <br/>
         Collision scenario:<br/>
         <!--Each specimen get the same portion of energy.-->
-        <input type="radio" name="collision_scenario" value="1" checked> standard<br>
+        <input type="radio" name="collision_scenario" value="norm" checked> standard<br>
         <!--Strongest specimen get whole collision energy.-->
-        <input type="radio" name="collision_scenario" value="2"> bad<br>
+        <input type="radio" name="collision_scenario" value="bad"> bad<br>
         <!--Strongest specimen get collision and other specimens energy.-->
-        <input type="radio" name="collision_scenario" value="3" checked> very bad<br>
+        <input type="radio" name="collision_scenario" value="vbad" checked> very bad<br>
         <!--Each specimen want have equal energy with others.-->
-        <input type="radio" name="collision_scenario" value="4"> altruist<br>
+        <input type="radio" name="collision_scenario" value="altr"> altruist<br>
         <br/>
-        <div><button>Simulate</button></div>
+        <div><button id="start_simulation">Simulate</button></div>
+        <br/>
+        Accumulator:<span id="accumulator"></span>
+        <br/>
+        Steps to die:<span id="steps"></span>
 
     </div>
     <div id="wrapper"></div>
